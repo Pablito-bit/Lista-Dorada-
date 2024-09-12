@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Dorada - Chillout Night</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #FFD700;
+            color: #000;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            text-transform: uppercase;
+        }
+        section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto;
+            background-color: #fff;
+            padding: 20px;
+        }
+        section h2 {
+            font-size: 2.5em;
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .upload-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .upload-container input[type="file"] {
+            display: block;
+            margin: 10px auto;
+            font-size: 1em;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border: 3px solid #FFD700;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #FFD700;
+            color: #000;
+            text-align: center;
+            padding: 15px 0;
+        }
+        footer p {
+            margin: 5px;
+            font-size: 1.2em;
+        }
+        footer a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Lista Dorada</h1>
+    <p>Chillout Night</p>
+</header>
+
+<section>
+    <h2>¡Únete a la mejor fiesta de música chillout en la ciudad!</h2>
+    
+    <!-- Oculto para usuarios no autenticados -->
+    <div class="upload-container" id="uploadSection" style="display:none;">
+        <h3>Sube tu flyer aquí</h3>
+        <input type="file" id="fileInput" accept="image/*" multiple>
+        <button onclick="uploadFlyers()">Subir Imágenes</button>
+    </div>
+
+    <div class="gallery" id="flyerGallery">
+        <!-- Aquí se mostrarán los flyers subidos -->
+    </div>
+</section>
+
+<footer>
+    <p>Síguenos en Instagram: <a href="https://www.instagram.com/eventos507pty.p/" target="_blank">@eventos507pty.p</a></p>
+    <p>Contacto: 61052422</p>
+</footer>
+
+<!-- Simulación de autenticación con contraseña -->
+<script>
+    // Contraseña de administrador
+    const adminPassword = "claveadmin";
+
+    // Preguntar por contraseña y mostrar sección de subida si es correcta
+    const password = prompt("Ingrese la contraseña de administrador para subir flyers:");
+    if (password === adminPassword) {
+        document.getElementById('uploadSection').style.display = 'block';
+    }
+
+    // Función para cargar imágenes en la galería
+    function uploadFlyers() {
+        const input = document.getElementById('fileInput');
+        const gallery = document.getElementById('flyerGallery');
+        
+        // Limpiar la galería antes de mostrar las nuevas imágenes
+        gallery.innerHTML = '';
+
+        const files = input.files;
+        if (files.length === 0) {
+            alert('Por favor, selecciona al menos una imagen.');
+            return;
+        }
+
+        for (const file of files) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = document.createElement('img');
+                img.src = event.target.result;
+                gallery.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+</body>
+</html>
+
